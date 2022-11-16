@@ -1,9 +1,10 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Text, View, StyleSheet, TextInput, FlatList } from 'react-native';
 import { Button } from './src/components/Button';
 import { SkillCard } from './src/components/SkillCard';
 
 export default function App() {
+  const [greeting, setGreeting] = useState('');
   const [newSkill, setNewSkill] = useState('');
   const [mySkills, setMySkills] = useState([]);
 
@@ -12,9 +13,20 @@ export default function App() {
     setNewSkill('');
   }
 
+  useEffect(function () {
+    const currentHour = new Date().getHours();
+    if (currentHour < 12) {
+      setGreeting('Good morning');
+    } else if (currentHour >= 12 && currentHour < 19) {
+      setGreeting('Good afternoon');
+    } else {
+      setGreeting('Good night');
+    }
+  }, [])
+
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Welcome, Júlio</Text>
+      <Text style={styles.title}>{greeting}, Júlio</Text>
       <TextInput
         value={newSkill}
         onChangeText={setNewSkill}
