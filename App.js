@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Text, View, StyleSheet, TextInput, ScrollView } from 'react-native';
+import { Text, View, StyleSheet, TextInput, FlatList } from 'react-native';
 import { Button } from './src/components/Button';
 import { SkillCard } from './src/components/SkillCard';
 
@@ -27,15 +27,14 @@ export default function App() {
 
       <Text style={[styles.title, styles.titleSkills]}>My Skills</Text>
 
-      <ScrollView>
-        {
-          mySkills.map((skill, index) => (
-            <SkillCard key={`${index}-${skill}`}>
-              {skill}
-            </SkillCard>
-          ))
-        }
-      </ScrollView>
+      <FlatList
+        data={mySkills}
+        keyExtractor={item => item}
+        renderItem={({ item }) => (
+          <SkillCard key={item}>{item}</SkillCard>
+        )}
+      />
+
     </View>
   );
 }
