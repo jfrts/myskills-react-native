@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Text, View, StyleSheet, TextInput, FlatList } from 'react-native';
+import { Text, View, StyleSheet, TextInput, FlatList, StatusBar } from 'react-native';
 import { Button } from './src/components/Button';
 import { SkillCard } from './src/components/SkillCard';
 
@@ -26,6 +26,7 @@ export default function App() {
 
   return (
     <View style={styles.container}>
+      <StatusBar barStyle="light-content" />
       <Text style={styles.title}>{greeting}, Júlio</Text>
       <TextInput
         value={newSkill}
