@@ -1,11 +1,41 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { useState } from 'react';
+import { Text, View, StyleSheet, TextInput, ScrollView } from 'react-native';
+import { Button } from './src/components/Button';
+import { SkillCard } from './src/components/SkillCard';
 
 export default function App() {
+  const [newSkill, setNewSkill] = useState('');
+  const [mySkills, setMySkills] = useState([]);
+
+  function handleAddNewSkill() {
+    setMySkills(oldState => [...oldState, newSkill]);
+    setNewSkill('');
+  }
+
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>Hello world!</Text>
-      <StatusBar style="auto" />
+      <Text style={styles.title}>Welcome, Júlio</Text>
+      <TextInput
+        value={newSkill}
+        onChangeText={setNewSkill}
+        placeholder='New skill'
+        placeholderTextColor='#888'
+        style={styles.input}
+        clearButtonMode='always'
+      />
+      <Button onPressHandle={handleAddNewSkill}>Add</Button>
+
+      <Text style={[styles.title, styles.titleSkills]}>My Skills</Text>
+
+      <ScrollView>
+        {
+          mySkills.map((skill, index) => (
+            <SkillCard key={`${index}-${skill}`}>
+              {skill}
+            </SkillCard>
+          ))
+        }
+      </ScrollView>
     </View>
   );
 }
@@ -13,11 +43,26 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#191919',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: '#121015',
+    paddingVertical: 70,
+    paddingHorizontal: 30
   },
-  text: {
-    color: '#fff',
+  title: {
+    color: '#fbfbfb',
+    fontSize: 22,
+    marginBottom: 24
+  },
+  input: {
+    backgroundColor: '#1f1e25',
+    color: '#aaa',
+    fontSize: 18,
+    padding: 12,
+  },
+  titleSkills: {
+    marginTop: 48,
+    marginBottom: 24,
+    paddingBottom: 8,
+    borderBottomColor: '#555',
+    borderBottomWidth: 1,
   }
 });
